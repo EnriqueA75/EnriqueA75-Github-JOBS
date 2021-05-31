@@ -1,6 +1,7 @@
 const ButtomNavigation = {
   home: 'tabs/Inicio',
   favorites: 'tabs/favorites',
+  profile: 'tabs/Perfil',
 };
 
 const LoginNavigation = {
