@@ -146,14 +146,17 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 99999,
   },
   loginDownStyle: {
     position: 'absolute',
     bottom: -70,
+    zIndex: 0,
   },
   loginUpStyle: {
     position: 'absolute',
     top: -30,
+    zIndex: 0,
   },
   githubLogoStyle: {
     position: 'absolute',
