@@ -1,38 +1,29 @@
 import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { RouteMap } from '../constants/RouteMap';
-import { HomeStackScreen } from './HomeStackNavigation';
-import { FavoritesStackScreen } from './FavoritesStackNavigation';
+import { AuthLogin } from '../screens/auth/AuthLogin';
+import { TabNavigation } from './TabNavidation';
 
-const Tab = createMaterialBottomTabNavigator();
+const LoginStack = createStackNavigator();
 
 export const AppNavigation = () => {
   return (
-    <Tab.Navigator
-      initialRouteName={RouteMap.ButtomNavigation.home}
-      activeColor="#fff"
-    >
-      <Tab.Screen
-        name={RouteMap.ButtomNavigation.home}
-        component={HomeStackScreen}
+    <LoginStack.Navigator initialRouteName={RouteMap.LoginNavigation.login}>
+      <LoginStack.Screen
         options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
+          headerShown: false,
         }}
+        name={RouteMap.LoginNavigation.login}
+        component={AuthLogin}
       />
-      <Tab.Screen
-        name={RouteMap.ButtomNavigation.favorites}
-        component={FavoritesStackScreen}
+      <LoginStack.Screen
         options={{
-          tabBarLabel: 'Favoritos',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="star" color={color} size={26} />
-          ),
+          headerShown: false,
         }}
+        name={RouteMap.LoginNavigation.tabs}
+        component={TabNavigation}
       />
-    </Tab.Navigator>
+    </LoginStack.Navigator>
   );
 };

@@ -1,10 +1,14 @@
-const ButtonNavigationRoutes = {
-  ButtomNavigation: {
-    home: 'Inicio',
-    favorites: 'favorites',
-  },
+const ButtomNavigation = {
+  home: 'tabs/Inicio',
+  favorites: 'tabs/favorites',
+};
+
+const LoginNavigation = {
+  login: 'login',
+  tabs: 'tabs',
 };
 
 export const RouteMap = {
-  ...ButtonNavigationRoutes,
+  ButtomNavigation,
+  LoginNavigation,
 };
