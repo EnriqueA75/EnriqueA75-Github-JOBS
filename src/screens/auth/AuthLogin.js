@@ -1,116 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import * as WebBrowser from 'expo-web-browser';
-import * as SecureStore from 'expo-secure-store';
-import { useNavigation } from '@react-navigation/native';
-import { Platform, StyleSheet, Text, View, Image } from 'react-native';
-import Axios from 'axios';
-import {
-  makeRedirectUri,
-  useAuthRequest,
-  ResponseType,
-} from 'expo-auth-session';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 import LoginSplashUp from '../../assets/img/login-splash-up.jpeg';
 import LoginSplashDown from '../../assets/img/login-splash-down.jpeg';
 import GithubLogo from '../../assets/img/github-logo.jpeg';
 import { Button } from 'react-native-paper';
 import { RouteMap } from '../../constants/RouteMap';
-
-export const AUTH_STATE_KEY = 'authStateKey';
-
-const client_id = '521abf3537f91e46b5b8';
-const client_secret = 'ac701872b2d625af079bbcb636c2f2e9fbd353c9';
+import { useLogin } from '../../hooks/useLogin';
+import { useRedirect } from '../../hooks/useRedirect';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const discovery = {
-  authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-  tokenEndpoint: 'https://github.com/login/oauth/access_token',
-  revocationEndpoint: `https://github.com/settings/connections/applications/${client_id}`,
-};
 export const AuthLogin = () => {
-  const navigation = useNavigation();
+  const { isRequesting, isAuthenticated, onLoginAsync } = useLogin();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const [request, response, promptAsync] = useAuthRequest(
-    {
-      responseType: ResponseType.Token,
-      clientId: client_id,
-      scopes: ['user', 'identity', 'repo'],
-      redirectUri: makeRedirectUri({
-        scheme: 'githubjobs',
-      }),
-    },
-    discovery
-  );
-
-  const createTokenByCode = async (code) => {
-    try {
-      const {
-        data: { access_token },
-      } = await Axios.post(
-        'https://github.com/login/oauth/access_token',
-        null,
-        {
-          params: {
-            code,
-            client_id,
-            client_secret,
-          },
-          headers: {
-            Accept: 'application/json',
-          },
-        }
-      );
-
-      loadUserByAccessToken(access_token);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const loadUserByAccessToken = async (access_token) => {
-    try {
-      const { data: user } = await Axios.get('https://api.github.com/user', {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-      const storageValue = JSON.stringify({ ...user, access_token });
-      if (Platform.OS !== 'web') {
-        SecureStore.setItemAsync(AUTH_STATE_KEY, storageValue);
-        setIsAuthenticated(true);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    SecureStore.getItemAsync(AUTH_STATE_KEY).then((response) => {
-      const { access_token } = JSON.parse(response);
-      loadUserByAccessToken(access_token);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: RouteMap.LoginNavigation.tabs }],
-      });
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const { code } = response.params;
-      createTokenByCode(code);
-    }
-  }, [response]);
-
+  useRedirect(RouteMap.LoginNavigation.tabs, isAuthenticated);
   return (
     <View style={styles.container}>
       <Image source={LoginSplashUp} style={styles.loginUpStyle} />
@@ -122,11 +28,9 @@ export const AuthLogin = () => {
         <Button
           style={styles.loginButtonStyle}
           color="black"
-          disabled={!request}
+          disabled={isRequesting}
           mode="contained"
-          onPress={() => {
-            promptAsync();
-          }}
+          onPress={onLoginAsync}
         >
           Sign up with GitHub
         </Button>
