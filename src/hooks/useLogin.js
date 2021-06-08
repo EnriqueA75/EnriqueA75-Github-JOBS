@@ -57,7 +57,7 @@ export const useLogin = () => {
         }
       );
 
-      loadUserByAccessToken(access_token);
+      await loadUserByAccessToken(access_token);
     } catch (err) {
       console.log(err);
       if (!isUnmount) {
