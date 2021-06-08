@@ -68,6 +68,7 @@ export const useLogin = () => {
 
   const loadUserByAccessToken = async (access_token) => {
     try {
+      console.log('LOGIN');
       const { data: user } = await Axios.get('https://api.github.com/user', {
         headers: {
           Authorization: `Bearer ${access_token}`,
