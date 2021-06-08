@@ -1,38 +1,36 @@
-import React, {useState, useEffect} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Input, Div } from 'react-native';
-import { Searchbar, Button  } from 'react-native-paper';
-import { SearchJob } from '../../components/search/SearchJob'
+import React, { useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { SearchJob } from '../../components/job/SearchJob';
+import JobsList from '../../components/job/JobsList';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
+import { JobsContext } from '../../contexts';
+import { ActivityIndicator } from 'react-native-paper';
 
 export const HomeScreen = () => {
-
-  const [data, setData] = useState('')
-
-  useEffect(() => {
-    if(data === '') return
-    const consultarApi = () => {
-      console.log(data)
-    }
-    consultarApi()
-
-  }, [data])
-
+  const { isRequesting } = useContext(JobsContext);
   return (
     <View style={styles.container}>
-        <SearchJob
-          setData={setData}
-          data={data}
-        />
-      <StatusBar style="auto" />
+      <SearchJob />
+      <View style={{ height: '100%' }}>
+        {isRequesting ? (
+          <View style={{ height: '100%', justifyContent: 'center' }}>
+            <ActivityIndicator />
+          </View>
+        ) : (
+          <ScrollView style={{ width: '100%', height: '100%' }}>
+            <JobsList />
+          </ScrollView>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    position: 'relative',
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });

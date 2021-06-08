@@ -6,7 +6,11 @@ import {
   useAuthRequest,
   ResponseType,
 } from 'expo-auth-session';
-import { getUserAuthenticated, loginUserStorageAsync } from '../utils/auth';
+import {
+  getUserAuthenticated,
+  loginUserStorageAsync,
+  logoutUserStorageAsync,
+} from '../utils/auth';
 
 const discovery = {
   authorizationEndpoint: 'https://github.com/login/oauth/authorize',

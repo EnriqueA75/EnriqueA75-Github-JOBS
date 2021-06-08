@@ -13,7 +13,7 @@ import {
 } from 'react-native-paper';
 import merge from 'deepmerge';
 import { AppContext } from './src/contexts';
-import SearchProvider from './src/contexts/SearchContext'
+import { JobsProvider } from './src/providers/JobsProvider';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 
@@ -42,14 +42,14 @@ export default function App() {
 
   const value = { state: appState, switchTheme };
   return (
-    <SearchProvider>
     <AppContext.Provider value={value}>
       <PaperProvider theme={appState.theme}>
         <NavigationContainer theme={appState.theme}>
-          <AppNavigation />
+          <JobsProvider>
+            <AppNavigation />
+          </JobsProvider>
         </NavigationContainer>
       </PaperProvider>
     </AppContext.Provider>
-    </SearchProvider>
   );
 }
