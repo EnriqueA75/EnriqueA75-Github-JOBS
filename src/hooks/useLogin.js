@@ -18,12 +18,8 @@ const client_id = '521abf3537f91e46b5b8';
 const client_secret = 'ac701872b2d625af079bbcb636c2f2e9fbd353c9';
 
 export const useLogin = () => {
-<<<<<<< HEAD
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-=======
   const [isUnmount, setIsUnmount] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
->>>>>>> 687673fa510b9761cf2acd9f114bd6c6ff716efa
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isRequesting, setIsRequesting] = useState(false);
 
   const [, response, promptAsync] = useAuthRequest(

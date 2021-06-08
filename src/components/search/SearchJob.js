@@ -10,7 +10,6 @@ import {SearchContext} from '../../contexts/SearchContext'
 
   const onChangeSearch = (query) => {
     setLenguaje(query)
-    console.log(jobsList)
   }
 
     return (
