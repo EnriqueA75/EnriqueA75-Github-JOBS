@@ -1,12 +1,18 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { Card } from 'react-native-paper';
+
+
 
 export const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Perfil</Text>
-      <StatusBar style="auto" />
+      <View style={styles.card_template}>
+         <Image style={styles.card_image} source={{uri: 'https://escuelarafaelarcangel.cl/images/equipo/men.png'}}/>
+            <Text style={styles.card_title}>Mi Nombre</Text>
+            <Text style={styles.card_title}>Acerca de Mi</Text>
+        </View>
     </View>
   );
 };
@@ -18,4 +24,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  card_template:{
+    width: 350,
+    height: 450,
+    borderRadius: 10,
+    backgroundColor: '#22215B',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card_image: {
+    width: 220,
+    height: 220,
+  },
+  card_title: {
+     color: "white",
+     textAlign: 'center',
+     padding: 5
+  }
 });
