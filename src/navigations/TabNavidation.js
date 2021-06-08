@@ -20,6 +20,7 @@ export const TabNavigation = () => {
         name={RouteMap.ButtomNavigation.home}
         component={HomeStackScreen}
         options={{
+          tabBarLabel: 'Inicio',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
