@@ -6,6 +6,7 @@ import { jobs as jobsData } from '../data';
 
 export const JobsProvider = ({ children }) => {
   const [query, setQuery] = useState('');
+  const [isAddNewFavorite, setisAddNewFavorite] = useState(false);
   const [jobs, setJobs] = useState(jobsData);
   const [isRequesting, setIsRequesting] = useState(false);
 
@@ -32,6 +33,8 @@ export const JobsProvider = ({ children }) => {
     onQueryChange,
     isRequesting,
     query,
+    isAddNewFavorite,
+    setisAddNewFavorite,
   };
 
   return <JobsContext.Provider value={value}>{children}</JobsContext.Provider>;

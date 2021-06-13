@@ -14,10 +14,9 @@ import {
 import merge from 'deepmerge';
 import { AppContext } from './src/contexts';
 import { JobsProvider } from './src/providers/JobsProvider';
-import  FavoriteModel  from './src/model/FavoriteModel';
+import { Item } from './src/model/Item';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
-
 
 const CombinedCustomDefaultTheme = {
   ...CombinedDefaultTheme,
@@ -42,13 +41,12 @@ export default function App() {
     }));
   };
 
-  useEffect(()=>{
-
-    const createDatabase = async() => {
-      await FavoriteModel.createTable()
-    }
-    createDatabase()
-  },[])
+  useEffect(() => {
+    const createDatabase = async () => {
+      await Item.init();
+    };
+    createDatabase();
+  }, []);
 
   const value = { state: appState, switchTheme };
   return (
