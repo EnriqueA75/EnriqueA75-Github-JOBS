@@ -8,7 +8,7 @@ import { JobsContext } from '../../contexts';
 import { ActivityIndicator } from 'react-native-paper';
 
 export const HomeScreen = () => {
-  const { isRequesting } = useContext(JobsContext);
+  const { isRequesting, jobs } = useContext(JobsContext);
   return (
     <View style={styles.container}>
       <SearchJob />
@@ -19,7 +19,7 @@ export const HomeScreen = () => {
           </View>
         ) : (
           <ScrollView style={{ width: '100%', height: '100%' }}>
-            <JobsList />
+            <JobsList jobs={jobs} />
           </ScrollView>
         )}
       </View>
