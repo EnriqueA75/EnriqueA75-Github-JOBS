@@ -8,6 +8,7 @@ export const JobsProvider = ({ children }) => {
   const [query, setQuery] = useState('');
   const [jobs, setJobs] = useState(jobsData);
   const [isRequesting, setIsRequesting] = useState(false);
+  const [detail, setDetail] = useState({})
 
   const onQueryChange = (query) => {
     setIsRequesting(true);
@@ -32,6 +33,8 @@ export const JobsProvider = ({ children }) => {
     onQueryChange,
     isRequesting,
     query,
+    detail,
+    setDetail
   };
 
   return <JobsContext.Provider value={value}>{children}</JobsContext.Provider>;
