@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppNavigation } from './src/navigations/AppNavigation';
 import {
   NavigationContainer,
@@ -14,6 +14,7 @@ import {
 import merge from 'deepmerge';
 import { AppContext } from './src/contexts';
 import { JobsProvider } from './src/providers/JobsProvider';
+import { Item } from './src/model/Item';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 
@@ -39,6 +40,13 @@ export default function App() {
       isDark: !isDark,
     }));
   };
+
+  useEffect(() => {
+    const createDatabase = async () => {
+      await Item.init();
+    };
+    createDatabase();
+  }, []);
 
   const value = { state: appState, switchTheme };
   return (

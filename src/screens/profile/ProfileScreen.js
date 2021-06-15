@@ -1,7 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import { Card } from 'react-native-paper';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 
 
