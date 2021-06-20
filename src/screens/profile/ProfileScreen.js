@@ -1,19 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View} from 'react-native';
+import { DataProfile } from '../../components/profile/DataProfile';
 
 
 
 export const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.card_template}>
-         <Image style={styles.card_image} source={{uri: 'https://escuelarafaelarcangel.cl/images/equipo/men.png'}}/>
-            <Text style={styles.card_title}>Mi Nombre</Text>
-            <Text style={styles.card_title}>Acerca de Mi</Text>
-        </View>
+      <DataProfile/>
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -40,3 +39,4 @@ const styles = StyleSheet.create({
      padding: 5
   }
 });
+
