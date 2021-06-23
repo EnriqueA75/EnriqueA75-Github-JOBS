@@ -19,7 +19,6 @@ export const SearchJob = () => {
 
 const styles = StyleSheet.create({
   searchInput: {
-    position: 'absolute',
     width: '88%',
     marginTop: 10,
     zIndex: 10
